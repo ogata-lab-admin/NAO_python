@@ -221,6 +221,7 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 	# 
 	#
 	def onInitialize(self):
+
 		# Bind variables and configuration variable
 		self.bindParameter("ipaddress", self._ipaddress, "nao.local")
 		self.bindParameter("port", self._port, "9559")
@@ -255,7 +256,7 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		
 		# Set CORBA Service Ports
 		self.addPort(self._NAO_srvPort)
-		
+
 		return RTC.RTC_OK
 	
 	#	##
@@ -314,6 +315,7 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 			self._behaviorManager.connect(self._ipaddress[0], self._port[0])
 		except Exception, e:
 			print e
+			return RTC.RTC_ERROR
 		return RTC.RTC_OK
 	
 		##

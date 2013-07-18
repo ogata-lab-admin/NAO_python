@@ -29,101 +29,120 @@ class ALMotion_i (ssr__POA.ALMotion):
         """
         pass
 
+    def connect(self, addr, port):
+        self.proxy = ALProxy("ALMotion", addr, port)
+
     # void setAngles(in StringArray name, in FloatArray value, in float fractionSpeed)
     def setAngles(self, name, value, fractionSpeed):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.setAngles(name, value, fractionSpeed)
 
     # FloatArray getAngles(in StringArray name, in boolean useSensors)
     def getAngles(self, name, useSensors):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        return self.proxy.getAngles(name, useSensors)
 
-    # void openHane(in string name)
-    def openHane(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+    # void openHand(in string name)
+    def openHand(self, name):
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.openHand(name)
 
     # void closeHand(in string name)
     def closeHand(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.closeHand(name)
 
     # void setStiffness(in StringArray name, in FloatArray stiffnesses)
     def setStiffness(self, name, stiffnesses):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.setStiffness(name, stiffnesses)
 
     # FloatArray getStiffness(in StringArray name)
     def getStiffness(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        return self.proxy.getStiffness(name)
 
     # void rest()
     def rest(self):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.rest()
 
     # void wakeUp()
     def wakeUp(self):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.wakeUp()
 
     # void moveTo(in float x, in float y, in float theta)
     def moveTo(self, x, y, theta):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.moveTo(x, y, theta)
 
     # void moveToward(in float vx, in float vy, in float vtheta)
     def moveToward(self, vx, vy, vtheta):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.moveToward(vx, vy, vtheta)
 
     # FloatArray getRobotPosition()
     def getRobotPosition(self):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        return self.proxy.getRobotPosition()
 
     # FloatArray getRobotVelocity()
     def getRobotVelocity(self):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        return self.proxy.getRobotVelocity()
 
     # void stopMove()
     def stopMove(self):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.stopMove()
 
     # boolean moveIsActive()
     def moveIsActive(self):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        #raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        return self.proxy.moveIsActive()
 
     # void waitUntilMoveIsFinished()
     def waitUntilMoveIsFinished(self):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.waitUntilMoveIsFinished()
 
     # void moveInit()
     def moveInit(self):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        self.proxy.moveInit()
 
     # void setWalkArmEnabled(in boolean leftArmEnable, in boolean rightArmEnable)
     def setWalkArmEnabled(self, leftArmEnable, rightArmEnable):
@@ -302,6 +321,9 @@ class ALMemory_i (ssr__POA.ALMemory):
         """
         pass
 
+    def connect(self, addr, port):
+        self.proxy = ALProxy("ALMemory", addr, port)
+
     # void insertLongData(in string name, in long value)
     def insertLongData(self, name, value):
         raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
@@ -389,6 +411,9 @@ class ALVideoDevice_i (ssr__POA.ALVideoDevice):
         """
         pass
 
+    def connect(self, addr, port):
+        self.proxy = ALProxy("ALVideoDevice", addr, port)
+
     # long getCameraModel(in long index)
     def getCameraModel(self, index):
         raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
@@ -446,6 +471,9 @@ class ALLeds_i (ssr__POA.ALLeds):
         """
         pass
 
+    def connect(self, addr, port):
+        self.proxy = ALProxy("ALLeds", addr, port)
+
     # void fade(in string name, in float intensity, in float duration)
     def fade(self, name, intensity, duration):
         raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
@@ -470,6 +498,7 @@ if __name__ == "__main__":
 
     # Create an instance of a servant class
     servant = ALMotion_i()
+    servant = ALLeds_i()
 
     # Activate it in the Root POA
     poa.activate_object(servant)

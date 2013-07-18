@@ -34,7 +34,7 @@ module ssr {
   interface ALMotion {
     void setAngles(in StringArray name, in FloatArray value, in float fractionSpeed);
     FloatArray getAngles(in StringArray name, in boolean useSensors);
-    void openHane(in string name);
+    void openHand(in string name);
     void closeHand(in string name);
     
     void setStiffness(in StringArray name, in FloatArray stiffnesses);
