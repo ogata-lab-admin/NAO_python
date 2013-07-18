@@ -24,12 +24,12 @@ module ssr {
   };
 
   struct BoolArray {
-    sequence<bool> data;
+    sequence<boolean> data;
   };
 
   interface ALMotion {
     void setAngles(in StringArray name, in DoubleArray value, in double fractionSpeed);
-    DoubleArray getAngles(in StringArray name, in bool useSensors);
+    DoubleArray getAngles(in StringArray name, in boolean useSensors);
     void openHane(in string name);
     void closeHand(in string name);
     
