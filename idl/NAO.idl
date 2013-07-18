@@ -1,0 +1,68 @@
+
+
+module ssr {
+
+  struct ActuatorPosition {
+    string name;
+    double position; // [rad]
+  };
+
+  typedef sequence<ActuatorPosition> ActuatorPositionSeq;
+
+
+  struct ActuatorPositionArray {
+    ActuatorPositionSeq data;
+    double fractionSpeed;
+  };
+
+  struct StringArray {
+    sequence<string> data;
+  };
+
+  struct DoubleArray {
+    sequence<double> data;
+  };
+
+  struct BoolArray {
+    sequence<bool> data;
+  };
+
+  interface ALMotion {
+    void setAngles(in StringArray name, in DoubleArray value, in double fractionSpeed);
+    DoubleArray getAngles(in StringArray name, in bool useSensors);
+    void openHane(in string name);
+    void closeHand(in string name);
+    
+    void setStiffness(in StringArray name, in DoubleArray stiffnesses);
+    DoubleArray getStiffness(in StringARray name);
+
+    void rest();
+    void wakeUp();
+
+    void moveTo(in double x, in double y, in double theta);
+    void moveToward(in double vx, in double vy, in double vtheta);
+    DoubleArray getRobotPosition();
+    DoubleArray getRobotVelocity();
+    void stopMove();
+    bool moveIsActive();
+    void waitUntilMoveIsFinished();
+    void moveInit();
+    void setWalkArmEnabled(in bool leftArmEnable, in bool rightArmEnable);
+    BoolArray getWalkArmEnabled();
+
+    DoubleArray getPosition(in string name, in int space, in bool useSensors);
+    void setPosition(in string name, in int space, in DoubleArray position, in double fractionMaxSpeed, in int axisMask);
+    void setTransform(in string name, in int space, in DoubleArray transform, in double fractionMaxSpeed, in int axisMask);
+    DoubleArray getTransform(in string name, in int space, in bool useSensorValues);
+  };
+
+  interface ALTextToSpeech {
+    void say(in string stringToSay);
+    void setVolume(in double volume);
+    double getVolume();
+    void setLanguage(in string language);
+    string getLanguage();
+    StringArray getAvailableLanguages();
+  };
+
+};
