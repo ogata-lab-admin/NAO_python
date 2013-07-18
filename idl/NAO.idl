@@ -34,7 +34,7 @@ module ssr {
     void closeHand(in string name);
     
     void setStiffness(in StringArray name, in DoubleArray stiffnesses);
-    DoubleArray getStiffness(in StringARray name);
+    DoubleArray getStiffness(in StringArray name);
 
     void rest();
     void wakeUp();
@@ -44,16 +44,16 @@ module ssr {
     DoubleArray getRobotPosition();
     DoubleArray getRobotVelocity();
     void stopMove();
-    bool moveIsActive();
+    boolean moveIsActive();
     void waitUntilMoveIsFinished();
     void moveInit();
-    void setWalkArmEnabled(in bool leftArmEnable, in bool rightArmEnable);
+    void setWalkArmEnabled(in boolean leftArmEnable, in boolean rightArmEnable);
     BoolArray getWalkArmEnabled();
 
-    DoubleArray getPosition(in string name, in int space, in bool useSensors);
-    void setPosition(in string name, in int space, in DoubleArray position, in double fractionMaxSpeed, in int axisMask);
-    void setTransform(in string name, in int space, in DoubleArray transform, in double fractionMaxSpeed, in int axisMask);
-    DoubleArray getTransform(in string name, in int space, in bool useSensorValues);
+    DoubleArray getPosition(in string name, in long space, in boolean useSensors);
+    void setPosition(in string name, in long space, in DoubleArray position, in double fractionMaxSpeed, in long axisMask);
+    void setTransform(in string name, in long space, in DoubleArray transform, in double fractionMaxSpeed, in long axisMask);
+    DoubleArray getTransform(in string name, in long space, in boolean useSensorValues);
   };
 
   interface ALTextToSpeech {
