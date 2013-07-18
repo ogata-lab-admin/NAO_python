@@ -101,6 +101,13 @@ NAOは ``NAOComp`` を実行（ ``${prefix}/components/bin`` に
 ipaddress        string             nao.local        
 port             int                9559             
 debug            int                1                
+camera_id        int                0                
+num_channel      int                1                
+interleaved      int                interleeved      
+num_samples      int                16000            
+channel_name     string             fromt            
+enable_camera    int                0                
+enable_audio     int                0                
 ================ ================== ================ ====
 
 ポート
@@ -111,8 +118,18 @@ debug            int                1
 =============== =========== ============================== ====
 ポート名        ポート型    データ型                       意味
 =============== =========== ============================== ====
+camera          OutPort     RTC::CameraImage               
+audio           OutPort     RTC::TimedOctetSeq             
+jointAngle      OutPort     RTC::TimedDoubleSeq            
+bumper          OutPort     RTC::TimedBooleanSeq           bumper data (lfoot_left, lfoot_right, rfoot_left, rfoot_right)
+touch           OutPort     RTC::TimedBooleanSeq           touch detection (head_back, head_center, head_front, rhand_back, rhand_center, rhand_front, lhand_back, lhand_center, lhand_front)
+sonar           OutPort     RTC::TimedBooleanSeq           sonar detection, (left, right)
 ALMotion        ServicePort ssr::ALMotion                  
 ALTextToSpeech  ServicePort ssr::ALTextToSpeech            
+ALBehaviorManager ServicePort ssr::ALBehaviorManager         
+ALMemory        ServicePort ssr::ALMemory                  
+ALLeds          ServicePort ssr::ALLeds                    
+ALVideoDevice   ServicePort ssr::ALVideoDevice             
 =============== =========== ============================== ====
 
 例

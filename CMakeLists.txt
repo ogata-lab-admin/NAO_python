@@ -17,7 +17,7 @@ set(RTC_VERSION_MINOR "0")
 set(RTC_VERSION_PATCH "0")
 set(RTC_LANG "python")
 set(RTC_DESCRIPTION "NAO RT Component")
-set(RTC_VENDOR "Sugar Sweet Robotics")
+set(RTC_VENDOR "Ogata Lab Waseda Univ.")
 set(RTC_MAINTAINER "author@example.com")
 
 string(TOLOWER ${RTC_NAME} PACKAGE_NAME)
