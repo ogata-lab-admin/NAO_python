@@ -23,6 +23,9 @@ import NAO_idl
 # <rtc-template block="service_impl">
 from NAO_idl_example import *
 
+import vision_definitions
+import Image
+
 # </rtc-template>
 
 # Import Service stub modules
@@ -50,7 +53,7 @@ nao_spec = ["implementation_id", "NAO",
 		 "conf.default.interleaved", "1",
 		 "conf.default.num_samples", "16000",
 		 "conf.default.channel_name", "fromt",
-		 "conf.default.enable_camera", "0",
+		 "conf.default.enable_camera", "1",
 		 "conf.default.enable_audio", "0",
 		 "conf.__widget__.ipaddress", "text",
 		 "conf.__widget__.port", "text",
@@ -311,8 +314,25 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		#
 	def onActivated(self, ec_id):
 		try :
-			self._textToSpeech.connect(self._ipaddress[0], self._port[0])
+
 			self._behaviorManager.connect(self._ipaddress[0], self._port[0])
+			self._motion.connect(self._ipaddress[0], self._port[0])
+			self._leds.connect(self._ipaddress[0], self._port[0])
+
+			self._memory.connect(self._ipaddress[0], self._port[0])
+
+
+			if self._enable_camera[0] > 0:
+				self._videoDevice.connect(self._ipaddress[0], self._port[0])
+				resolution = vision_definitions.kQVGA
+				colorSpace = vision_definitions.kRGBColorSpace
+				fps = 30
+				self._video_nameId =self._videoDevice.proxy.subscribe("python_GVM", resolution, colorSpace, fps)
+				pass
+
+			if self._enable_audio[0] > 0:
+				self._textToSpeech.connect(self._ipaddress[0], self._port[0])
+				pass
 		except Exception, e:
 			print e
 			return RTC.RTC_ERROR
@@ -329,7 +349,13 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		#
 		#
 	def onDeactivated(self, ec_id):
-	
+		try:
+			if self._enable_camera[0] > 0:
+				self._videoDevice.proxy.unsubscribe(self._video_nameId)
+
+                except Exception, e:
+			print e
+			return RTC.RTC_ERROR
 		return RTC.RTC_OK
 	
 		##
@@ -343,7 +369,21 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		#
 		#
 	def onExecute(self, ec_id):
-		
+		try:
+			if self._enable_camera[0]:
+				self._image = self._videoDevice.proxy.getImageRemote(self._video_nameId)
+				self._d_camera.width = self._image[0]
+				self._d_camera.height = self._image[1]
+				self._d_camera.pixels = self._image[6]
+				self._cameraOut.write()
+			
+				# Create a PIL Image from our pixel array.
+				#im = Image.fromstring("RGB", (self._image[0], self._image[1]), self._image[6])
+				# Save the image.
+				#im.save("camImage.png", "PNG")
+		except Exception, e:
+			print e
+			return RTC.RTC_ERROR
 		return RTC.RTC_OK
 	
 	#	##
