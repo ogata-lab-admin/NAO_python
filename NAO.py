@@ -318,7 +318,6 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 			self._behaviorManager.connect(self._ipaddress[0], self._port[0])
 			self._motion.connect(self._ipaddress[0], self._port[0])
 			self._leds.connect(self._ipaddress[0], self._port[0])
-
 			self._memory.connect(self._ipaddress[0], self._port[0])
 
 

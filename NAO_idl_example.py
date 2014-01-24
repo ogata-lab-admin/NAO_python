@@ -15,7 +15,9 @@ from omniORB import CORBA, PortableServer
 import ssr, ssr__POA
 from naoqi import *
 
+import traceback,threading
 
+threads = []
 class ALMotion_i (ssr__POA.ALMotion):
     """
     @class ALMotion_i
@@ -37,14 +39,25 @@ class ALMotion_i (ssr__POA.ALMotion):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.setAngles(name, value, fractionSpeed)
+        try:
+            self.proxy.setAngles(name.data, value.data, fractionSpeed)
+        except:
+            traceback.print_exc()
+
 
     # FloatArray getAngles(in StringArray name, in boolean useSensors)
     def getAngles(self, name, useSensors):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
-        return self.proxy.getAngles(name, useSensors)
+        # print 'getAngles', name, ',', useSensors
+        try:
+            d = self.proxy.getAngles(name.data, useSensors)
+            print '==>', d
+            return ssr.FloatArray(d)
+        except:
+            traceback.print_exc()
+            return ssr.FloatArray([])
 
     # void openHand(in string name)
     def openHand(self, name):
@@ -65,84 +78,131 @@ class ALMotion_i (ssr__POA.ALMotion):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.setStiffness(name, stiffnesses)
+        try:
+            self.proxy.setStiffnesses(name.data, stiffnesses.data)
+        except:
+            traceback.print_exc()
 
     # FloatArray getStiffness(in StringArray name)
     def getStiffness(self, name):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
-        return self.proxy.getStiffness(name)
+        try:
+            d = self.proxy.getStiffnesses(name.data)
+            return ssr.FloatArray(d)
+        except:
+            traceback.print_exc()
+            return ssr.FloatArray([])
 
     # void rest()
     def rest(self):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.rest()
+        try:
+            self.proxy.rest()
+        except:
+            traceback.print_exc()
 
     # void wakeUp()
     def wakeUp(self):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.wakeUp()
+        try:
+            self.proxy.wakeUp()
+        except:
+            traceback.print_exc()
+
 
     # void moveTo(in float x, in float y, in float theta)
     def moveTo(self, x, y, theta):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.moveTo(x, y, theta)
+        try:
+            self.proxy.moveTo(x, y, theta)
+        except:
+            traceback.print_exc()
+
 
     # void moveToward(in float vx, in float vy, in float vtheta)
     def moveToward(self, vx, vy, vtheta):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.moveToward(vx, vy, vtheta)
+        try:
+            self.proxy.moveToward(vx, vy, vtheta)
+        except:
+            traceback.print_exc()
+
 
     # FloatArray getRobotPosition()
     def getRobotPosition(self):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
-        return self.proxy.getRobotPosition()
+        try:
+            return self.proxy.getRobotPosition()
+        except:
+            traceback.print_exc()
+
 
     # FloatArray getRobotVelocity()
     def getRobotVelocity(self):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
-        return self.proxy.getRobotVelocity()
+        try:
+            return self.proxy.getRobotVelocity()
+        except:
+            traceback.print_exc()
+
 
     # void stopMove()
     def stopMove(self):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.stopMove()
+        try:
+            self.proxy.stopMove()
+        except:
+            traceback.print_exc()
+
 
     # boolean moveIsActive()
     def moveIsActive(self):
         #raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
-        return self.proxy.moveIsActive()
+        try:
+            return self.proxy.moveIsActive()
+        except:
+            traceback.print_exc()
+
 
     # void waitUntilMoveIsFinished()
     def waitUntilMoveIsFinished(self):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.waitUntilMoveIsFinished()
+        try:
+            self.proxy.waitUntilMoveIsFinished()
+        except:
+            traceback.print_exc()
+
 
     # void moveInit()
     def moveInit(self):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.moveInit()
+        try:
+            self.proxy.moveInit()
+        except:
+            traceback.print_exc()
+
 
     # void setWalkArmEnabled(in boolean leftArmEnable, in boolean rightArmEnable)
     def setWalkArmEnabled(self, leftArmEnable, rightArmEnable):
@@ -202,7 +262,11 @@ class ALTextToSpeech_i (ssr__POA.ALTextToSpeech):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.say(stringToSay)
+        try:
+            # print 'say ', stringToSay
+            self.proxy.say(stringToSay)
+        except:
+            traceback.print_exc()
 
     # void setVolume(in float volume)
     def setVolume(self, volume):
@@ -262,14 +326,16 @@ class ALBehaviorManager_i (ssr__POA.ALBehaviorManager):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
-        return self.proxy.getInstalledBehaviors()
+        return ssr.StringArray(self.proxy.getInstalledBehaviors())
 
     # StringArray getRunningBehaviors()
     def getRunningBehaviors(self):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
-        return self.proxy.getRunningBehaviors()
+        d = self.proxy.getRunningBehaviors()
+        return ssr.StringArray(d)
+
 
     # boolean isBehaviorInstalled(in string name)
     def isBehaviorInstalled(self, name):
@@ -290,7 +356,11 @@ class ALBehaviorManager_i (ssr__POA.ALBehaviorManager):
         # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
-        self.proxy.runBehavior(name)
+        try:
+            self.proxy.runBehavior(name)
+        except:
+            traceback.print_exc()
+
 
     # void stopAllBehaviors()
     def stopAllBehaviors(self):
@@ -326,76 +396,141 @@ class ALMemory_i (ssr__POA.ALMemory):
 
     # void insertLongData(in string name, in long value)
     def insertLongData(self, name, value):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        try:
+            self.proxy.insertLongData(name, value)
+        except:
+            traceback.print_exc()
+        return None
 
     # void insertFloatData(in string name, in long value)
     def insertFloatData(self, name, value):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        try:
+            self.proxy.insertFloatData(name, value)
+        except:
+            traceback.print_exc()
+        return None
 
     # void insertStringData(in string name, in string value)
     def insertStringData(self, name, value):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        try:
+            self.proxy.insertStringData(name, value)
+        except:
+            traceback.print_exc()
+        return None
 
-    # void insertoLongArrayData(in string name, in LongArray value)
-    def insertoLongArrayData(self, name, value):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
-        # *** Implement me
-        # Must return: None
 
-    # void insertoFloatArrayData(in string name, in FloatArray value)
-    def insertoFloatArrayData(self, name, value):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+    # void insertLongArrayData(in string name, in LongArray value)
+    def insertLongArrayData(self, name, value):
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        try:
+            self.proxy.insertLongArrayData(name, value.data)
+        except:
+            traceback.print_exc()
+        return None
 
-    # void insertoStringArrayData(in string name, in StringArray value)
-    def insertoStringArrayData(self, name, value):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+
+    # void insertFloatArrayData(in string name, in FloatArray value)
+    def insertFloatArrayData(self, name, value):
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        try:
+            self.proxy.insertFloatArrayData(name, value.data)
+        except:
+            traceback.print_exc()
+        return None
+
+    # void insertStringArrayData(in string name, in StringArray value)
+    def insertStringArrayData(self, name, value):
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # *** Implement me
+        # Must return: None
+        try:
+            self.proxy.insertStringArrayData(name, value.data)
+        except:
+            traceback.print_exc()
+        return None
+
 
     # long getLongData(in string name)
     def getLongData(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        try:
+            return self.proxy.getLongData(name)
+        except:
+            traceback.print_exc()
+        return None
 
     # float getFloatData(in string name)
     def getFloatData(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        try:
+            return self.proxy.getFloatData(name)
+        except:
+            traceback.print_exc()
+        return None
 
     # string getStringData(in string name)
     def getStringData(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        try:
+            return self.proxy.getStringData(name)
+        except:
+            traceback.print_exc()
+        return None
+
 
     # LongArray getLongArrayData(in string name)
     def getLongArrayData(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        try:
+            return self.proxy.getLongArrayData(name)
+        except:
+            traceback.print_exc()
+        return None
+
 
     # FloatArray getFloatArrayData(in string name)
     def getFloatArrayData(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
+        try:
+            return self.proxy.getFloatArrayData(name)
+        except:
+            traceback.print_exc()
+        return None
+
 
     # StringArray getStringArrayData(in string name)
     def getStringArrayData(self, name):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        # raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
-
+        try:
+            return self.proxy.getStringArrayData(name)
+        except:
+            traceback.print_exc()
+        return None
 
 
 class ALVideoDevice_i (ssr__POA.ALVideoDevice):
@@ -476,15 +611,23 @@ class ALLeds_i (ssr__POA.ALLeds):
 
     # void fade(in string name, in float intensity, in float duration)
     def fade(self, name, intensity, duration):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        #raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        try:
+            self.proxy.fade(name, intensity, duration)
+        except:
+            traceback.print_exc()
 
     # void fadeRGB(in string name, in long rgb, in float duration)
     def fadeRGB(self, name, rgb, duration):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        #raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
+        try:
+            self.proxy.fadeRGB(name, rgb, duration)
+        except:
+            traceback.print_exc()
 
 
 if __name__ == "__main__":

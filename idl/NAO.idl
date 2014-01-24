@@ -83,9 +83,9 @@ module ssr {
     void insertLongData(in string name, in long value);
     void insertFloatData(in string name, in long value);
     void insertStringData(in string name, in string value);
-    void insertoLongArrayData(in string name, in LongArray value);
-    void insertoFloatArrayData(in string name, in FloatArray value);
-    void insertoStringArrayData(in string name, in StringArray value);
+    void insertLongArrayData(in string name, in LongArray value);
+    void insertFloatArrayData(in string name, in FloatArray value);
+    void insertStringArrayData(in string name, in StringArray value);
 
     long getLongData(in string name);
     float getFloatData(in string name);
