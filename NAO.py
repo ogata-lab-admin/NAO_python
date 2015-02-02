@@ -55,6 +55,8 @@ nao_spec = ["implementation_id", "NAO",
 		 "conf.default.channel_name", "fromt",
 		 "conf.default.enable_camera", "1",
 		 "conf.default.enable_audio", "0",
+                 "conf.default.orthogonal_security_distance", "0.1",
+                 "conf.default.tangential_security_distance", "0.1",
 		 "conf.__widget__.ipaddress", "text",
 		 "conf.__widget__.port", "text",
 		 "conf.__widget__.debug", "text",
@@ -210,6 +212,16 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		 - DefaultValue: 0
 		"""
 		self._enable_audio = [0]
+		"""
+		 - Name:  orthogonal_security_distance
+		 - DefaultValue: 0.1
+		"""
+		self._orthogonal_security_distance = [0.1]
+		"""
+		 - Name:  tangential_security_distance
+		 - DefaultValue: 0.1
+		"""
+		self._tangential_security_distance = [0.1]
 		
 		# </rtc-template>
 
@@ -236,6 +248,8 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		self.bindParameter("channel_name", self._channe_name, "fromt")
 		self.bindParameter("enable_camera", self._enable_camera, "0")
 		self.bindParameter("enable_audio", self._enable_audio, "0")
+		self.bindParameter("orthogonal_security_distance", self._orthogonal_security_distance, "0.1")
+		self.bindParameter("tangential_security_distance", self._tangential_security_distance, "0.1")
 		
 		# Set InPort buffers
 		
@@ -317,6 +331,10 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 
 			self._behaviorManager.connect(self._ipaddress[0], self._port[0])
 			self._motion.connect(self._ipaddress[0], self._port[0])
+			self._motion.proxy.setOrthogonalSecurityDistance(
+				self._orthogonal_security_distance[0])
+			self._motion.proxy.setTangentialSecurityDistance(
+				self._tangential_security_distance[0])
 			self._leds.connect(self._ipaddress[0], self._port[0])
 			self._memory.connect(self._ipaddress[0], self._port[0])
 
