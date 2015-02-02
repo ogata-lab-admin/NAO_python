@@ -11,6 +11,7 @@
 """
 import sys
 import time
+import yaml
 sys.path.append(".")
 
 # Import RTM module
@@ -24,7 +25,7 @@ import NAO_idl
 from NAO_idl_example import *
 
 import vision_definitions
-import Image
+# import Image
 
 # </rtc-template>
 
@@ -52,7 +53,7 @@ nao_spec = ["implementation_id", "NAO",
 		 "conf.default.num_channel", "1",
 		 "conf.default.interleaved", "1",
 		 "conf.default.num_samples", "16000",
-		 "conf.default.channel_name", "fromt",
+		 "conf.default.channel_name", "front",
 		 "conf.default.enable_camera", "1",
 		 "conf.default.enable_audio", "0",
                  "conf.default.orthogonal_security_distance", "0.1",
@@ -96,6 +97,15 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		format = "bitmap"
 		fDiv = 1.0
 		pixels = []
+		self._d_velocity = RTC.TimedVelocity2D(RTC.Time(0,0), RTC.Velocity2D(0,0,0))
+		"""
+		"""
+		self._velocityIn = OpenRTM_aist.InPort("velocity", self._d_velocity)
+		self._d_targetJointAngle = RTC.TimedDoubleSeq(RTC.Time(0,0),[])
+		"""
+		"""
+		self._targetJointAngleIn = OpenRTM_aist.InPort("targetJointAngle", self._d_targetJointAngle)
+
 		self._d_camera = RTC.CameraImage(RTC.Time(0,0), w, h, bpp, format, fDiv, pixels)
 		"""
 		"""
@@ -104,10 +114,10 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		"""
 		"""
 		self._audioOut = OpenRTM_aist.OutPort("audio", self._d_audio)
-		self._d_jointAngle = RTC.TimedDoubleSeq(RTC.Time(0,0),[])
+		self._d_currentJointAngle = RTC.TimedDoubleSeq(RTC.Time(0,0),[])
 		"""
 		"""
-		self._jointAngleOut = OpenRTM_aist.OutPort("jointAngle", self._d_jointAngle)
+		self._currentJointAngleOut = OpenRTM_aist.OutPort("currentJointAngle", self._d_currentJointAngle)
 		self._d_bumper = RTC.TimedBooleanSeq(RTC.Time(0,0),[])
 		"""
 		bumper data (lfoot_left, lfoot_right, rfoot_left, rfoot_right)
@@ -197,9 +207,9 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		"""
 		
 		 - Name:  channe_name
-		 - DefaultValue: fromt
+		 - DefaultValue: front
 		"""
-		self._channe_name = ['fromt']
+		self._channe_name = ['front']
 		"""
 		
 		 - Name:  enable_camera
@@ -222,7 +232,21 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		 - DefaultValue: 0.1
 		"""
 		self._tangential_security_distance = [0.1]
-		
+		"""
+		 - Name: observing_body_names
+		 - DefaultValue: HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand
+		"""
+		self._observing_body_names = ['HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand']
+		"""
+		 - Name: controlling_body_names
+		 - DefaultValue: HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand
+		"""
+		self._controlling_body_names = ['HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand']
+		"""
+		 - Name: enable_joint_angle_port
+		 - DefaultValue: True
+		"""
+		self._enable_joint_angle_port = [True]
 		# </rtc-template>
 
 
@@ -245,18 +269,22 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		self.bindParameter("num_channel", self._num_channel, "1")
 		self.bindParameter("interleaved", self._interleaved, "1")
 		self.bindParameter("num_samples", self._num_samples, "16000")
-		self.bindParameter("channel_name", self._channe_name, "fromt")
+		self.bindParameter("channel_name", self._channe_name, "front")
 		self.bindParameter("enable_camera", self._enable_camera, "0")
 		self.bindParameter("enable_audio", self._enable_audio, "0")
 		self.bindParameter("orthogonal_security_distance", self._orthogonal_security_distance, "0.1")
 		self.bindParameter("tangential_security_distance", self._tangential_security_distance, "0.1")
-		
+		self.bindParameter("observing_body_names", self._observing_body_names, "")
+		self.bindParameter("controlling_body_names", self._controlling_body_names, "")
+		self.bindParameter("enable_joint_angle_port", self._enable_joint_angle_port, "True")
 		# Set InPort buffers
-		
+		self.addInPort("velocity", self._velocityIn)
+		self.addInPort("targetJointAngle", self._targetJointAngleIn)
+
 		# Set OutPort buffers
 		self.addOutPort("camera",self._cameraOut)
 		self.addOutPort("audio",self._audioOut)
-		self.addOutPort("jointAngle",self._jointAngleOut)
+		self.addOutPort("currentJointAngle",self._currentJointAngleOut)
 		self.addOutPort("bumper",self._bumperOut)
 		self.addOutPort("touch",self._touchOut)
 		self.addOutPort("sonar",self._sonarOut)
@@ -329,6 +357,15 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 	def onActivated(self, ec_id):
 		try :
 
+			if self._enable_joint_angle_port[0]:
+				self._observing_joint_ids = yaml.load('[' + self._observing_body_names[0] + ']')
+				self._controlling_joint_ids = yaml.load('[' + self._observing_body_names[0] + ']')
+				pass
+			else:
+				self._observing_joint_ids = []
+				self._controlling_joint_ids = []
+				pass
+
 			self._behaviorManager.connect(self._ipaddress[0], self._port[0])
 			self._motion.connect(self._ipaddress[0], self._port[0])
 			self._motion.proxy.setOrthogonalSecurityDistance(
@@ -344,12 +381,13 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 				resolution = vision_definitions.kQVGA
 				colorSpace = vision_definitions.kRGBColorSpace
 				fps = 30
-				self._video_nameId =self._videoDevice.proxy.subscribe("python_GVM", resolution, colorSpace, fps)
+				self._video_nameId = self._videoDevice.proxy.subscribe("python_GVM", resolution, colorSpace, fps)
 				pass
 
 			if self._enable_audio[0] > 0:
 				self._textToSpeech.connect(self._ipaddress[0], self._port[0])
 				pass
+				
 		except Exception, e:
 			print e
 			return RTC.RTC_ERROR
@@ -398,6 +436,28 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 				#im = Image.fromstring("RGB", (self._image[0], self._image[1]), self._image[6])
 				# Save the image.
 				#im.save("camImage.png", "PNG")
+
+			if self._velocityIn.isNew():
+				val = self._velocityIn.read()
+				self._motion.proxy.moveToward(val.data.vx, val.data.vy, val.data.va)
+
+			if len(self._controlling_joint_ids) > 0:
+				if self._targetJointAngleIn.isNew():
+					val = self._targetJointAngleIn.read()
+					if len(val) != len(self._controlling_joint_ids):
+						print 'Invalid Input Length(input=', len(val), ', output=', len(self._controlling_joint_ids), ')'
+						return RTC.RTC_ERROR
+					self._motion.proxy.setAngles(self._controlling_joint_ids,
+								    val.data, 
+								    1.0)
+			if len(self._observing_joint_ids) > 0:
+				self._d_currentJointAngle.data = self._motion.proxy.getAngles(self._observing_joint_ids,
+											     True)
+				self._currentJointAngleOut.write()
+				
+				pass
+
+
 		except Exception, e:
 			print e
 			return RTC.RTC_ERROR
