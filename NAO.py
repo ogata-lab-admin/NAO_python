@@ -9,7 +9,7 @@
 
 
 """
-import sys
+import sys, traceback
 import time
 import yaml
 sys.path.append(".")
@@ -118,6 +118,10 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		"""
 		"""
 		self._currentJointAngleOut = OpenRTM_aist.OutPort("currentJointAngle", self._d_currentJointAngle)
+		self._d_currentPose = RTC.TimedPose2D(RTC.Time(0,0),RTC.Pose2D(RTC.Point2D(0,0), 0))
+		"""
+		"""
+		self._currentPoseOut = OpenRTM_aist.OutPort("currentPose", self._d_currentPose)
 		self._d_bumper = RTC.TimedBooleanSeq(RTC.Time(0,0),[])
 		"""
 		bumper data (lfoot_left, lfoot_right, rfoot_left, rfoot_right)
@@ -285,6 +289,7 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		self.addOutPort("camera",self._cameraOut)
 		self.addOutPort("audio",self._audioOut)
 		self.addOutPort("currentJointAngle",self._currentJointAngleOut)
+		self.addOutPort("currentPose",self._currentPoseOut)
 		self.addOutPort("bumper",self._bumperOut)
 		self.addOutPort("touch",self._touchOut)
 		self.addOutPort("sonar",self._sonarOut)
@@ -389,7 +394,7 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 				pass
 				
 		except Exception, e:
-			print e
+			traceback.print_exc()
 			return RTC.RTC_ERROR
 		return RTC.RTC_OK
 	
@@ -409,7 +414,7 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 				self._videoDevice.proxy.unsubscribe(self._video_nameId)
 
                 except Exception, e:
-			print e
+			traceback.print_exc()
 			return RTC.RTC_ERROR
 		return RTC.RTC_OK
 	
@@ -440,6 +445,11 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 			if self._velocityIn.isNew():
 				val = self._velocityIn.read()
 				self._motion.proxy.moveToward(val.data.vx, val.data.vy, val.data.va)
+				val = self._motion.proxy.getRobotPosition(False)
+				self._d_currentPose.data.position.x = val[0]
+				self._d_currentPose.data.position.y = val[1]
+				self._d_currentPose.data.heading = val[2]
+				self._currentPoseOut.write()
 
 			if len(self._controlling_joint_ids) > 0:
 				if self._targetJointAngleIn.isNew():
@@ -459,7 +469,7 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 
 
 		except Exception, e:
-			print e
+			traceback.print_exc()
 			return RTC.RTC_ERROR
 		return RTC.RTC_OK
 	
