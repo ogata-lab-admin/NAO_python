@@ -379,7 +379,8 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 				self._tangential_security_distance[0])
 			self._leds.connect(self._ipaddress[0], self._port[0])
 			self._memory.connect(self._ipaddress[0], self._port[0])
-
+                        self._poseOffset = self._motion.proxy.getRobotPosition(False)
+                        
 
 			if self._enable_camera[0] > 0:
 				self._videoDevice.connect(self._ipaddress[0], self._port[0])
@@ -444,12 +445,20 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 
 			if self._velocityIn.isNew():
 				val = self._velocityIn.read()
+                                if val.data.va > 1: 
+                                        val.data.va = 1
+                                elif val.data.va < -1: 
+                                        val.data.va = -1
+                                print val
 				self._motion.proxy.moveToward(val.data.vx, val.data.vy, val.data.va)
-				val = self._motion.proxy.getRobotPosition(False)
-				self._d_currentPose.data.position.x = val[0]
-				self._d_currentPose.data.position.y = val[1]
-				self._d_currentPose.data.heading = val[2]
-				self._currentPoseOut.write()
+                        val = self._motion.proxy.getRobotPosition(False)
+                        x = val[0] - self._poseOffset[0]
+                        y = val[1] - self._poseOffset[1]
+                        a = val[2] - self._poseOffset[2]
+                        self._d_currentPose.data.position.x = -y
+                        self._d_currentPose.data.position.y = x
+                        self._d_currentPose.data.heading = a
+                        self._currentPoseOut.write()
 
 			if len(self._controlling_joint_ids) > 0:
 				if self._targetJointAngleIn.isNew():
