@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Ogata Lab Waseda Univ.:Robot:NAO:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="NAO" rtc:updateDate="2013-07-18T11:35:13.287+09:00" rtc:creationDate="2013-07-17T13:19:33+09:00" rtc:version="1.0.0" rtc:vendor="Ogata Lab Waseda Univ." rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="NAO RT Component" rtc:category="Robot" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="NAO">
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Ogata Lab Waseda Univ.:Robot:NAO:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="NAO" rtc:updateDate="2015-02-06T14:39:26.794+09:00" rtc:creationDate="2013-07-17T13:19:33+09:00" rtc:abstract="Aldebaran Robotics NAO / Pepper RT-Component using NAOqi. To use this, install naoqi python SDK version 2.*. Before launch NAO.py, build_idl.sh (bat) must be used to build idl file." rtc:version="1.0.0" rtc:vendor="Ogata Lab Waseda Univ." rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Aldebaran NAO / Pepper RT-Component" rtc:category="Robot" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="NAO">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="" rtcDoc:algorithm="" rtcDoc:inout="" rtcDoc:description="Aldebaran Robotics NAO / Pepper RT-Component using NAOqi. To use this, install naoqi python SDK version 2.*. Before launch NAO.py, build_idl.sh (bat) must be used to build idl file."/>
         <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
     </rtc:BasicInfo>
     <rtc:Actions>
@@ -21,12 +22,15 @@
     </rtc:Actions>
     <rtc:ConfigurationSet>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="ipaddress" rtc:unit="" rtc:defaultValue="nao.local" rtc:type="string" rtc:name="ipaddress">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="IP address of NAO/Pepper. If your PC has Bonjour (avahi), you can use the name of nao. (ex., nao.local)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="port" rtc:unit="" rtc:defaultValue="9559" rtc:type="int" rtc:name="port">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Port of naoqi server. Default value is 9559. Some simulation environment provides other port number. See the manual of them." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="debug" rtc:unit="" rtc:defaultValue="1" rtc:type="int" rtc:name="debug">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="To view more informoation on console, set 1." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="camera_id" rtc:unit="" rtc:defaultValue="0" rtc:type="int" rtc:name="camera_id">
@@ -50,6 +54,7 @@
                     </rtc:Or>
                 </rtc:ConstraintUnitType>
             </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Camera ID of NAO. 0 = Top, 1 = Bottom." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="num_channel" rtc:unit="" rtc:defaultValue="1" rtc:type="int" rtc:name="num_channel">
@@ -80,6 +85,7 @@
                     </rtc:Or>
                 </rtc:ConstraintUnitType>
             </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="The number of audio channel. NAO has 4 microphones. You can use 1, 2, 4 values." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="1" rtc:unit="" rtc:defaultValue="interleeved" rtc:type="int" rtc:name="interleaved">
@@ -103,9 +109,11 @@
                     </rtc:Or>
                 </rtc:ConstraintUnitType>
             </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Is audio interleaved or not. 0 = not interleaved. 1 = interleaved." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="num_samples" rtc:unit="" rtc:defaultValue="16000" rtc:type="int" rtc:name="num_samples">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Sampling num. " rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="channe_name" rtc:unit="" rtc:defaultValue="front" rtc:type="string" rtc:name="channel_name">
@@ -136,6 +144,7 @@
                     </rtc:Or>
                 </rtc:ConstraintUnitType>
             </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Names of Audio channels" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="checkbox" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="enable_camera" rtc:unit="" rtc:defaultValue="0" rtc:type="int" rtc:name="enable_camera">
@@ -159,6 +168,7 @@
                     </rtc:Or>
                 </rtc:ConstraintUnitType>
             </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Camera ON/OFF. If 1, the RTC will connect vision interface to naoqi server. If 0, this RTC will not connect  the vision interface." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="enable_audio" rtc:unit="" rtc:defaultValue="0" rtc:type="int" rtc:name="enable_audio">
@@ -182,14 +192,40 @@
                     </rtc:Or>
                 </rtc:ConstraintUnitType>
             </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Audio (includes TextToSpeech) ON/OFF. If 1, the RTC will connect audio interface to naoqi server. If 0, this RTC will not connect  the audio interface." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
             <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
         </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="orthogonal_security_distance" rtc:unit="" rtc:defaultValue="0.1" rtc:type="string" rtc:name="orthogonal_security_distance">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Security distance for locomotion on orthogonal (front) direciton. If some obstacle is detected in the direction and the distance between the robot and the obstact is less than this value, the robot can not move toward the object." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="tangential_security_distance" rtc:unit="" rtc:defaultValue="0.1" rtc:type="string" rtc:name="tangential_security_distance">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Security distance for locomotion on tangential (-90 to 90) direciton. If some obstacle is detected in the front 180 degree space and the distance between the robot and the obstact is less than this value, the robot can not move toward the object." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="controlling_body_names" rtc:unit="" rtc:defaultValue="HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand" rtc:type="string" rtc:name="controlling_body_names">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="This value must be the list of the joint name. The joint name is defined in the NAO/Pepper. See their manual to know the names. &lt;br/&gt;&lt;br/&gt;If you set this value &quot;HeadYaw, HeadPitch&quot;, the data package received in the targetJointAngle port will change the angles of the joints. Comma separation. Never use [ and ]." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="observing_body_names" rtc:unit="" rtc:defaultValue="HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand" rtc:type="string" rtc:name="observing_body_names">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="This value must be the list of the joint name. The joint name is defined in the NAO/Pepper. See their manual to know the names. &lt;br/&gt;&lt;br/&gt;If you set this value &quot;HeadYaw, HeadPitch&quot;, the data packet sent from the currentJointAngle port means the angles of the joints. Comma separation. Never use [ and ]." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
     </rtc:ConfigurationSet>
-    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="camera" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::CameraImage" rtc:name="camera" rtc:portType="DataOutPort"/>
-    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="audio" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedOctetSeq" rtc:name="audio" rtc:portType="DataOutPort"/>
-    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="jointAngle" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="jointAngle" rtc:portType="DataOutPort"/>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="velocity" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedVelocity2D" rtc:name="velocity" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Target Velocity for locomotion."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="targetJointAngle" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="targetJointAngle" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Target Angle Position of Joints. The controlled joints are defined in the configuration (controlling_joint_names)."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="camera" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::CameraImage" rtc:name="camera" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Camera Image. To switch camera, use the configuration (camera_id)."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="audio" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedOctetSeq" rtc:name="audio" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Audio Data . To switch configuration will change the data alignment."/>
+    </rtc:DataPorts>
     <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="bumper" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedBooleanSeq" rtc:name="bumper" rtc:portType="DataOutPort">
-        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="bumper data (lfoot_left, lfoot_right, rfoot_left, rfoot_right)"/>
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="bumper data. This data is sequence. Alignment is (lfoot_left, lfoot_right, rfoot_left, rfoot_right)"/>
     </rtc:DataPorts>
     <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="touch" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedBooleanSeq" rtc:name="touch" rtc:portType="DataOutPort">
         <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="touch detection (head_back, head_center, head_front, rhand_back, rhand_center, rhand_front, lhand_back, lhand_center, lhand_front)"/>
@@ -197,13 +233,32 @@
     <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="sonar" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedBooleanSeq" rtc:name="sonar" rtc:portType="DataOutPort">
         <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="sonar detection, (left, right)"/>
     </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="currentJointAngle" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="currentJointAngle" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Current joint position. The observing joints are defined in the configuration of observing_joint_names."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="currentPose" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedPose2D" rtc:name="currentPose" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Current Position of locomotion. The current position is calculated odometry. In NAO, the footsteps. the Pepper, encoders. When this RTC is activated, the position is initialized as (0, 0, 0)."/>
+    </rtc:DataPorts>
     <rtc:ServicePorts xsi:type="rtcExt:serviceport_ext" rtcExt:position="LEFT" rtc:name="NAO_srv">
-        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="motion" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALMotion" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALMotion" rtc:direction="Provided" rtc:name="ALMotion"/>
-        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="textToSpeech" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALTextToSpeech" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALTextToSpeech" rtc:direction="Provided" rtc:name="ALTextToSpeech"/>
-        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="behaviorManager" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALBehaviorManager" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALBehaviorManager" rtc:direction="Provided" rtc:name="ALBehaviorManager"/>
-        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="memory" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALMemory" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALMemory" rtc:direction="Provided" rtc:name="ALMemory"/>
-        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="leds" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALLeds" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALLeds" rtc:direction="Provided" rtc:name="ALLeds"/>
-        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="videoDevice" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALVideoDevice" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALVideoDevice" rtc:direction="Provided" rtc:name="ALVideoDevice"/>
+        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="motion" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALMotion" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALMotion" rtc:direction="Provided" rtc:name="ALMotion">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="Motion Proxy."/>
+        </rtc:ServiceInterface>
+        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="textToSpeech" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALTextToSpeech" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALTextToSpeech" rtc:direction="Provided" rtc:name="ALTextToSpeech">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="Speech synthesizer"/>
+        </rtc:ServiceInterface>
+        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="behaviorManager" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALBehaviorManager" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALBehaviorManager" rtc:direction="Provided" rtc:name="ALBehaviorManager">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="Behavior manager"/>
+        </rtc:ServiceInterface>
+        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="memory" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALMemory" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALMemory" rtc:direction="Provided" rtc:name="ALMemory">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="Memory (This is used for share some data to every modules)"/>
+        </rtc:ServiceInterface>
+        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="leds" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALLeds" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALLeds" rtc:direction="Provided" rtc:name="ALLeds">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="LEDs."/>
+        </rtc:ServiceInterface>
+        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="videoDevice" rtc:path="/Users/ysuga/rtm/idl" rtc:type="ssr::ALVideoDevice" rtc:idlFile="/Users/ysuga/rtm/idl/NAO.idl" rtc:instanceName="ALVideoDevice" rtc:direction="Provided" rtc:name="ALVideoDevice">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="Cameras."/>
+        </rtc:ServiceInterface>
+        <rtcDoc:Doc rtcDoc:ifdescription="" rtcDoc:description="This service port is directy connected to Naoqi Interfaces. See the manual of Naoqi API to get more information."/>
     </rtc:ServicePorts>
     <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="Python"/>
 </rtc:RtcProfile>
