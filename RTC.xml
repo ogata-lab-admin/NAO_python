@@ -108,7 +108,7 @@
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="num_samples" rtc:unit="" rtc:defaultValue="16000" rtc:type="int" rtc:name="num_samples">
             <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
         </rtc:Configuration>
-        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="channe_name" rtc:unit="" rtc:defaultValue="fromt" rtc:type="string" rtc:name="channel_name">
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="channe_name" rtc:unit="" rtc:defaultValue="front" rtc:type="string" rtc:name="channel_name">
             <rtc:Constraint>
                 <rtc:ConstraintUnitType>
                     <rtc:Or>
