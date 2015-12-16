@@ -144,7 +144,12 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 
 		"""
 		"""
-		self._NAO_srvPort = OpenRTM_aist.CorbaPort("NAO_srv")
+		self._motion_srvPort = OpenRTM_aist.CorbaPort("motion")
+		self._textToSpeech_srvPort = OpenRTM_aist.CorbaPort("textToSpeech")
+		self._behaviorManager_srvPort = OpenRTM_aist.CorbaPort("behaviorManager")
+		self._memory_srvPort = OpenRTM_aist.CorbaPort("memory")
+		self._leds_srvPort = OpenRTM_aist.CorbaPort("leds")
+		self._videoDevice_srvPort = OpenRTM_aist.CorbaPort("videoDevice")
 
 		"""
 		"""
@@ -298,17 +303,22 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 		self.addOutPort("sonar",self._sonarOut)
 		
 		# Set service provider to Ports
-		self._NAO_srvPort.registerProvider("ALMotion", "ssr::ALMotion", self._motion)
-		self._NAO_srvPort.registerProvider("ALTextToSpeech", "ssr::ALTextToSpeech", self._textToSpeech)
-		self._NAO_srvPort.registerProvider("ALBehaviorManager", "ssr::ALBehaviorManager", self._behaviorManager)
-		self._NAO_srvPort.registerProvider("ALMemory", "ssr::ALMemory", self._memory)
-		self._NAO_srvPort.registerProvider("ALLeds", "ssr::ALLeds", self._leds)
-		self._NAO_srvPort.registerProvider("ALVideoDevice", "ssr::ALVideoDevice", self._videoDevice)
+		self._motion_srvPort.registerProvider("ALMotion", "ssr::ALMotion", self._motion)
+		self._textToSpeech_srvPort.registerProvider("ALTextToSpeech", "ssr::ALTextToSpeech", self._textToSpeech)
+		self._behaviorManager_srvPort.registerProvider("ALBehaviorManager", "ssr::ALBehaviorManager", self._behaviorManager)
+		self._memory_srvPort.registerProvider("ALMemory", "ssr::ALMemory", self._memory)
+		self._leds_srvPort.registerProvider("ALLeds", "ssr::ALLeds", self._leds)
+		self._videoDevice_srvPort.registerProvider("ALVideoDevice", "ssr::ALVideoDevice", self._videoDevice)
 		
 		# Set service consumers to Ports
 		
 		# Set CORBA Service Ports
-		self.addPort(self._NAO_srvPort)
+		self.addPort(self._motion_srvPort)
+		self.addPort(self._textToSpeech_srvPort)
+		self.addPort(self._behaviorManager_srvPort)
+		self.addPort(self._memory_srvPort)
+		self.addPort(self._leds_srvPort)
+		self.addPort(self._videoDevice_srvPort)
 
 		return RTC.RTC_OK
 	
