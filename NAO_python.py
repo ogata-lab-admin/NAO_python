@@ -3,7 +3,7 @@
 # -*- Python -*-
 
 """
- @file NAO.py
+ @file NAO_python.py
  @brief NAO RT Component
  @date $Date$
 
@@ -36,12 +36,12 @@ import vision_definitions
 
 # This module's spesification
 # <rtc-template block="module_spec">
-nao_spec = ["implementation_id", "NAO", 
-		 "type_name",         "NAO", 
+nao_spec = ["implementation_id", "NAO_python", 
+		 "type_name",         "NAO_python", 
 		 "description",       "NAO RT Component", 
-		 "version",           "1.0.0", 
+		 "version",           "1.0.2", 
 		 "vendor",            "Ogata Lab Waseda Univ.", 
-		 "category",          "Robot", 
+		 "category",          "Humanoid", 
 		 "activity_type",     "STATIC", 
 		 "max_instance",      "1", 
 		 "language",          "Python", 
@@ -81,11 +81,11 @@ nao_spec = ["implementation_id", "NAO",
 # </rtc-template>
 
 ##
-# @class NAO
+# @class NAO_python
 # @brief NAO RT Component
 # 
 # 
-class NAO(OpenRTM_aist.DataFlowComponentBase):
+class NAO_python(OpenRTM_aist.DataFlowComponentBase):
 	
 	##
 	# @brief constructor
@@ -569,17 +569,17 @@ class NAO(OpenRTM_aist.DataFlowComponentBase):
 
 
 
-def NAOInit(manager):
+def NAO_pythonInit(manager):
     profile = OpenRTM_aist.Properties(defaults_str=nao_spec)
     manager.registerFactory(profile,
-                            NAO,
+                            NAO_python,
                             OpenRTM_aist.Delete)
 
 def MyModuleInit(manager):
-    NAOInit(manager)
+    NAO_pythonInit(manager)
 
     # Create a component
-    comp = manager.createComponent("NAO")
+    comp = manager.createComponent("NAO_python")
 
 def main():
 	mgr = OpenRTM_aist.Manager.init(sys.argv)
