@@ -58,9 +58,11 @@ nao_spec = ["implementation_id", "NAO_python",
 		 "conf.default.enable_audio", "0",
                  "conf.default.orthogonal_security_distance", "0.1",
                  "conf.default.tangential_security_distance", "0.1",
-	         "conf.default.observing_body_names", "HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand",
-	         "conf.default.controlling_body_names", "HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand",
-	         "conf.enable_joint_angle_port", "True", 
+	         #"conf.default.observing_body_names", "HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand",
+                 "conf.default.observing_body_names", "HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand",
+	         #"conf.default.controlling_body_names", "HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand",
+	         "conf.default.controlling_body_names", "HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand",
+	         "conf.default.enable_joint_angle_port", "True", 
 		 "conf.__widget__.ipaddress", "text",
 		 "conf.__widget__.port", "text",
 		 "conf.__widget__.debug", "text",
@@ -248,12 +250,12 @@ class NAO_python(OpenRTM_aist.DataFlowComponentBase):
 		 - Name: observing_body_names
 		 - DefaultValue: HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand
 		"""
-		self._observing_body_names = ['HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand']
+		self._observing_body_names = ['HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand']
 		"""
 		 - Name: controlling_body_names
 		 - DefaultValue: HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand
 		"""
-		self._controlling_body_names = ['HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, HipRoll, HipPitch, KneePitch, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand']
+		self._controlling_body_names = ['HeadYaw, HeadPitch, LShoulderPitch, LShoulderRoll, LElbowYaw, LElbowRoll, LWristYaw, LHand, RShoulderPitch, RShoulderRoll, RElbowYaw, RElbowRoll, RWristYaw, RHand']
 		"""
 		 - Name: enable_joint_angle_port
 		 - DefaultValue: True
@@ -483,6 +485,7 @@ class NAO_python(OpenRTM_aist.DataFlowComponentBase):
 								    val.data, 
 								    1.0)
 			if len(self._observing_joint_ids) > 0:
+				#print self._observing_joint_ids
 				self._d_currentJointAngle.data = self._motion.proxy.getAngles(self._observing_joint_ids,
 											     True)
 				self._currentJointAngleOut.write()

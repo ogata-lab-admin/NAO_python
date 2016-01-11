@@ -218,13 +218,29 @@ class ALMotion_i (ssr__POA.ALMotion):
 
     # FloatArray getPosition(in string name, in long space, in boolean useSensors)
     def getPosition(self, name, space, useSensors):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        try:
+            pos = self.proxy.getPosition(name, space, useSensors)
+            print 'getPosition:', pos
+            return ssr.FloatArray(pos)
+        except:
+            traceback.print_exc()
+            return ssr.FloatArray([])
+
+        #raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: result
 
     # void setPosition(in string name, in long space, in FloatArray position, in float fractionMaxSpeed, in long axisMask)
     def setPosition(self, name, space, position, fractionMaxSpeed, axisMask):
-        raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
+        try:
+            self.proxy.setPositions(name, space, position.data, fractionMaxSpeed, axisMask)
+            #return ssr.FloatArray(pos)
+        except:
+            traceback.print_exc()
+            #return ssr.FloatArray([])
+
+
+        #raise CORBA.NO_IMPLEMENT(0, CORBA.COMPLETED_NO)
         # *** Implement me
         # Must return: None
 
