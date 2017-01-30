@@ -464,6 +464,14 @@ class NAO_python(OpenRTM_aist.DataFlowComponentBase):
                                         val.data.va = 1
                                 elif val.data.va < -1: 
                                         val.data.va = -1
+                                if val.data.vx > 1:
+                                        val.data.vx = 1
+                                elif val.data.vx < -1:
+                                        val.data.vx = -1
+                                if val.data.vy > 1:
+                                        val.data.vy = 1
+                                elif val.data.vy < -1:
+                                        val.data.vy = -1
                                 print val
 				self._motion.proxy.moveToward(val.data.vx, val.data.vy, val.data.va)
                         val = self._motion.proxy.getRobotPosition(False)
